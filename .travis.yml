@@ -1,0 +1,18 @@
+language: ruby
+rvm:
+- 2.2.3
+addons:
+  postgresql: '9.4'
+before_script:
+- psql -c 'create database travis_ci_test;' -U postgres
+- cp config/database.yml.travis config/database.yml
+deploy:
+  provider: heroku
+  api_key:
+    secure: RtgqaZy7wOOw5qB+nF3W8B95AJ7ov50AhRVPHjJwUdr/tGBT1B7qfoUO+2rYf/4+xgkFwAvyduKBY99ksgp10hZ1iOCWdtWQh/pDeC2jKVZrl4ZRtujIRUX19bJPKlZIQSUVQlwZXS2k9CcNUmC5SXZx66206F2uGFOlr78dKMSV5KN5pkLGHhg273aWK73L+amEZgUAs2CjLt7nDBH/beP8Lhs5gkMu6YnaYV65HTv7LIYS3oLN35gcTrcAUkioDbR93cSxBAFNmUM4eKm7ptH9Z2qaomD7BjyJK5vSimE3v1T8n9rQHlMzpEhYH4YMCPHGsbQOAAxBiG6PTrBJ7/XiUo/cOHgL8ZJqIjGsDvYcLJCHwWgAdk/dP4kYxXSajapmoAf4aHBPio3E6WmtBNqQEADqTt0UXRgiJS2btsnHCGHT0GAU4Py3KGvf3ABDgE1c8rfEqipxF0vlse/znZ5xHG73foGQ4890yMHZLQMxvEr6uIeqbew7W8nlv9lzlE+igdA3Kl5nV0PF+q1O3kGWaXBTFmPU168BIFX5hemVN1E1q3IfRrRFBmw7rsdrwFFgqR8wf5LJtW63ItkBZdg6W3FBUNPU6C12U2yT+/zy3FrueHM4eR1QVkOW/Yc3c6Zy9T/16UfCC6Pt2eNec5wgkdY6dJmLNCZdzz8PJy0=
+  app: hidden-reef-5776
+  on:
+    repo: zokuhara/twitcher2
+  run:
+    - "rake db:migrate"
+    - "rake cleanup"
