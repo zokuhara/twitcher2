@@ -1,8 +1,19 @@
 Rails.application.routes.draw do
 
-  root 'user#index'
+  root 'home#timeline'
 
-  get 'user/show'
+  get 'sign_in' => 'sessions#new', as: :sign_in
+  post 'sign_in' => 'sessions#create'
+  delete 'sign_in' => 'sessions#delete', as: :sign_out
+
+  get '/users/new' => 'users#new', as: :sign_up
+  post '/users' => 'users#create', as: :users
+
+  post "/users/:id/follow" => "following#create", as: :follow_user
+  post "/users/:id/unfollow" => "following#delete", as: :unfollow_user
+
+  get 'twits' => 'twits#create', as: :new_twit
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
