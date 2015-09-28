@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   post "/users/:id/follow" => "following#create", as: :follow_user
   post "/users/:id/unfollow" => "following#delete", as: :unfollow_user
 
-  get 'twits' => 'twits#create', as: :new_twit
+  get 'twits/new' => 'twits#new', as: :new_twit
+  post 'twits' => 'twits#create', as: :twits
 
 
   # The priority is based upon order of creation: first created -> highest priority.
